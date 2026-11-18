@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChromeLock</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔒 ChromeLock</h1>
+      <p class="subtitle">Block unproductive websites</p>
+    </header>
+
+    <!-- NEW: Toggle Section -->
+    <div class="toggle-section">
+      <div class="toggle-info">
+        <span class="toggle-label">Blocking</span>
+        <span id="statusText" class="status-text">Enabled</span>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="toggleEnabled" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="add-site-section">
+      <input 
+        type="text" 
+        id="siteInput" 
+        placeholder="Enter website (e.g., youtube.com)"
+        autocomplete="off"
+      >
+      <button id="addBtn" class="btn btn-primary">Add Site</button>
+    </div>
+
+    <div class="blocked-sites-section">
+      <h2>Blocked Sites</h2>
+      <div id="blockedList" class="blocked-list"></div>
+      <p id="emptyMessage" class="empty-message" style="display: none;">
+        No sites blocked yet. Add one above!
+      </p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+

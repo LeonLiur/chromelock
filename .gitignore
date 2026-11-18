@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+
+# packaged extension and its signing key
+*.crx
+*.pem
+*.zip
+
+# per-machine claude code settings
+.claude/settings.local.json

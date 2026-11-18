@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Blocked - ChromeLock</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 60px 40px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.4s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: bounce 1s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #1f2937;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 18px;
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .message {
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border-left: 4px solid #667eea;
+    }
+
+    .message p {
+      margin: 0;
+      font-size: 16px;
+      color: #4b5563;
+    }
+
+    .unblock-section {
+      background: #f9fafb;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      text-align: left;
+      border: 2px solid #e5e7eb;
+    }
+
+    .unblock-section h2 {
+      font-size: 20px;
+      color: #1f2937;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .time-input-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .time-input-group input {
+      flex: 1;
+    }
+
+    .time-input-group select {
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .time-input-group select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: #6b7280;
+    }
+
+    .btn-secondary:hover {
+      background: #4b5563;
+      box-shadow: 0 10px 25px rgba(107, 114, 128, 0.4);
+    }
+
+    .tip {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 14px;
+      color: #9ca3af;
+    }
+
+    .error {
+      color: #ef4444;
+      font-size: 14px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .error.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">🔒</div>
+    <h1>Site Blocked</h1>
+    <p id="blockedSiteText">This website has been blocked by ChromeLock to help you stay focused and productive.</p>
+    
+    <div class="message">
+      <p><strong>Take a moment to reflect:</strong> Is visiting this site aligned with your current goals?</p>
+    </div>
+
+    <div class="unblock-section">
+      <h2>Need Temporary Access?</h2>
+      <form id="unblockForm">
+        <div class="form-group">
+          <label for="reason">Why do you need access? *</label>
+          <textarea 
+            id="reason" 
+            placeholder="e.g., Research for work project, checking important notification..."
+            required
+          ></textarea>
+          <div class="error" id="reasonError">Please provide a reason</div>
+        </div>
+
+        <div class="form-group">
+          <label for="duration">How long do you need? *</label>
+          <div class="time-input-group">
+            <input 
+              type="number" 
+              id="duration" 
+              min="1" 
+              max="480" 
+              placeholder="15"
+              required
+            >
+            <select id="timeUnit" required>
+              <option value="minutes">Minutes</option>
+              <option value="hours">Hours</option>
+            </select>
+          </div>
+          <div class="error" id="durationError">Please enter a valid duration</div>
+        </div>
+
+        <button type="submit" class="btn">Unblock Temporarily</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back()">Go Back</button>
+      </form>
+    </div>
+
+    <div class="tip">
+      💡 Tip: You can manage your blocked sites by clicking the ChromeLock icon in your browser toolbar.
+    </div>
+  </div>
+
+  <script>
+    // Get the blocked site from URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    let blockedSite = urlParams.get('site') || 'this site';
+    
+    // Store original blocked site for form submission
+    const originalBlockedSite = blockedSite;
+    
+    if (blockedSite !== 'this site') {
+      document.getElementById('blockedSiteText').textContent = 
+        `${blockedSite} has been blocked by ChromeLock to help you stay focused and productive.`;
+    }
+
+    document.getElementById('unblockForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const reason = document.getElementById('reason').value.trim();
+      const duration = parseInt(document.getElementById('duration').value);
+      const timeUnit = document.getElementById('timeUnit').value;
+      
+      // Validation
+      let isValid = true;
+      
+      if (!reason) {
+        document.getElementById('reasonError').classList.add('show');
+        isValid = false;
+      } else {
+        document.getElementById('reasonError').classList.remove('show');
+      }
+      
+      if (!duration || duration < 1) {
+        document.getElementById('durationError').classList.add('show');
+        isValid = false;
+      } else {
+        document.getElementById('durationError').classList.remove('show');
+      }
+      
+      if (!isValid) return;
+      
+      // Calculate duration in minutes
+      const durationMinutes = timeUnit === 'hours' ? duration * 60 : duration;
+      
+        // Send message to background script
+      try {
+        console.log('Sending temporary unblock request:', {
+          site: originalBlockedSite,
+          reason: reason,
+          durationMinutes: durationMinutes
+        });
+        
+        const response = await chrome.runtime.sendMessage({
+          action: 'temporaryUnblock',
+          site: originalBlockedSite,
+          reason: reason,
+          durationMinutes: durationMinutes
+        });
+        
+        console.log('Received response:', response);
+        
+        if (response && response.success) {
+          // Wait for rules to update, then redirect
+          // Use window.location.replace to avoid adding to history
+          let redirectUrl = originalBlockedSite;
+          if (!redirectUrl.startsWith('http://') && !redirectUrl.startsWith('https://')) {
+            redirectUrl = `https://${redirectUrl}`;
+          }
+          
+          console.log('=== TEMPORARY UNBLOCK SUCCESS ===');
+          console.log('Original site:', originalBlockedSite);
+          console.log('Redirect URL:', redirectUrl);
+          console.log('Waiting 1.5 seconds for rules to update...');
+          
+          // Give Chrome more time to process the rule updates
+          setTimeout(() => {
+            console.log('Redirecting now to:', redirectUrl);
+            console.log('If you still see blocked page, check background script logs');
+            window.location.replace(redirectUrl);
+          }, 1500);
+        } else {
+          const errorMsg = response?.error || 'Failed to unblock site. Please try again.';
+          console.error('Unblock failed:', errorMsg);
+          alert(errorMsg);
+        }
+      } catch (error) {
+        console.error('Error unblocking site:', error);
+        alert('An error occurred. Please try again. Check the console for details.');
+      }
+    });
+  </script>
+</body>
+</html>
