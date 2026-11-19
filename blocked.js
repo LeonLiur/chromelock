@@ -15,7 +15,6 @@ document.getElementById('unblockForm').addEventListener('submit', async (e) => {
   
   const reason = document.getElementById('reason').value.trim();
   const duration = parseInt(document.getElementById('duration').value);
-  const timeUnit = document.getElementById('timeUnit').value;
   
   // Validation
   let isValid = true;
@@ -36,8 +35,7 @@ document.getElementById('unblockForm').addEventListener('submit', async (e) => {
   
   if (!isValid) return;
   
-  // Calculate duration in minutes
-  const durationMinutes = timeUnit === 'hours' ? duration * 60 : duration;
+  const durationMinutes = duration;
   
     // Send message to background script
   try {
@@ -88,3 +86,39 @@ document.getElementById('unblockForm').addEventListener('submit', async (e) => {
 
 // go back button (inline onclick is blocked by the mv3 csp)
 document.getElementById('goBackBtn').addEventListener('click', () => window.history.back());
+
+// rotating focus quotes
+const quotes = [
+  { text: 'The successful warrior is the average person, with laser-like focus.', author: 'Bruce Lee' },
+  { text: 'Concentrate all your thoughts upon the work at hand. The sun\'s rays do not burn until brought to a focus.', author: 'Alexander Graham Bell' },
+  { text: 'It is not that we have a short time to live, but that we waste a lot of it.', author: 'Seneca' },
+  { text: 'The ability to concentrate is the ability to say no to a thousand other good ideas.', author: 'Steve Jobs' },
+  { text: 'You will never reach your destination if you stop and throw stones at every dog that barks.', author: 'Winston Churchill' },
+  { text: 'Where your attention goes, your life goes.', author: 'Anonymous' },
+  { text: 'Lost time is never found again.', author: 'Benjamin Franklin' },
+  { text: 'Focus on being productive instead of busy.', author: 'Tim Ferriss' },
+  { text: 'What we pay attention to determines what we become.', author: 'Cal Newport' },
+  { text: 'Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.', author: 'Buddha' }
+];
+
+const quoteEl = document.getElementById('quote');
+const quoteText = document.getElementById('quoteText');
+const quoteAuthor = document.getElementById('quoteAuthor');
+let quoteIndex = Math.floor(Math.random() * quotes.length);
+
+function showQuote() {
+  quoteText.textContent = `"${quotes[quoteIndex].text}"`;
+  quoteAuthor.textContent = quotes[quoteIndex].author;
+}
+
+showQuote();
+
+// fade out, swap, fade in every 12 seconds
+setInterval(() => {
+  quoteEl.classList.add('fade');
+  setTimeout(() => {
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+    showQuote();
+    quoteEl.classList.remove('fade');
+  }, 500);
+}, 12000);
