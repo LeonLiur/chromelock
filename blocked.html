@@ -13,22 +13,29 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #d4d4d8;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      /* brushed black metal: fine horizontal grain over a dark sheen */
+      background:
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 1px, transparent 1px, transparent 3px),
+        linear-gradient(135deg, #050505 0%, #1a1b1e 30%, #0b0b0d 55%, #232427 78%, #070708 100%);
     }
 
     .container {
-      background: white;
-      border-radius: 20px;
-      padding: 60px 40px;
       max-width: 600px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 50px 40px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #1c1d20 0%, #0e0e10 50%, #19191c 100%);
+      border: 1px solid #2e2f33;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 20px 60px rgba(0, 0, 0, 0.7);
       animation: slideIn 0.4s ease-out;
     }
 
@@ -44,60 +51,72 @@
     }
 
     .icon {
-      font-size: 80px;
-      margin-bottom: 20px;
-      animation: bounce 1s ease-in-out infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      color: #a1a1aa;
     }
 
     h1 {
       font-size: 32px;
-      color: #1f2937;
+      color: #f4f4f5;
       margin-bottom: 16px;
       font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     p {
-      font-size: 18px;
-      color: #6b7280;
+      font-size: 17px;
+      color: #8b8b93;
       line-height: 1.6;
       margin-bottom: 30px;
     }
 
-    .message {
-      background: #f3f4f6;
-      padding: 20px;
-      border-radius: 12px;
+    .quote {
+      padding: 20px 24px;
       margin-bottom: 30px;
-      border-left: 4px solid #667eea;
+      border-left: 3px solid #71717a;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.03);
+      text-align: left;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: opacity 0.5s ease;
     }
 
-    .message p {
-      margin: 0;
-      font-size: 16px;
-      color: #4b5563;
+    .quote.fade {
+      opacity: 0;
+    }
+
+    .quote-text {
+      font-size: 17px;
+      font-style: italic;
+      line-height: 1.5;
+      color: #e4e4e7;
+    }
+
+    .quote-author {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #71717a;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     .unblock-section {
-      background: #f9fafb;
+      background: rgba(255, 255, 255, 0.025);
       padding: 30px;
       border-radius: 12px;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       text-align: left;
-      border: 2px solid #e5e7eb;
+      border: 1px solid #2e2f33;
     }
 
     .unblock-section h2 {
       font-size: 20px;
-      color: #1f2937;
+      color: #f4f4f5;
       margin-bottom: 20px;
       text-align: center;
     }
@@ -110,26 +129,34 @@
       display: block;
       font-size: 14px;
       font-weight: 600;
-      color: #374151;
+      color: #a1a1aa;
       margin-bottom: 8px;
     }
 
     .form-group input,
-    .form-group textarea {
+    .form-group textarea,
+    .time-input-group .unit {
       width: 100%;
       padding: 12px 16px;
-      border: 2px solid #e5e7eb;
+      border: 1px solid #3a3b40;
       border-radius: 8px;
       font-size: 14px;
       font-family: inherit;
+      color: #f4f4f5;
+      background: #0b0b0d;
       transition: all 0.2s;
       outline: none;
     }
 
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #52525b;
+    }
+
     .form-group input:focus,
     .form-group textarea:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      border-color: #a1a1aa;
+      box-shadow: 0 0 0 3px rgba(161, 161, 170, 0.15);
     }
 
     .form-group textarea {
@@ -147,28 +174,17 @@
       flex: 1;
     }
 
-    .time-input-group select {
-      padding: 12px 16px;
-      border: 2px solid #e5e7eb;
-      border-radius: 8px;
-      font-size: 14px;
-      font-family: inherit;
-      background: white;
-      cursor: pointer;
-      outline: none;
-      transition: all 0.2s;
-    }
-
-    .time-input-group select:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    /* minutes is the only unit, so it is a static label rather than a select */
+    .time-input-group .unit {
+      width: auto;
+      color: #a1a1aa;
     }
 
     .btn {
       display: inline-block;
       padding: 14px 32px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+      background: linear-gradient(180deg, #e4e4e7 0%, #a1a1aa 100%);
+      color: #0b0b0d;
       text-decoration: none;
       border-radius: 10px;
       font-weight: 600;
@@ -182,7 +198,7 @@
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
     }
 
     .btn:active {
@@ -190,24 +206,25 @@
     }
 
     .btn-secondary {
-      background: #6b7280;
+      background: #27272a;
+      color: #d4d4d8;
+      border: 1px solid #3a3b40;
     }
 
     .btn-secondary:hover {
-      background: #4b5563;
-      box-shadow: 0 10px 25px rgba(107, 114, 128, 0.4);
+      background: #323236;
     }
 
     .tip {
-      margin-top: 30px;
-      padding-top: 30px;
-      border-top: 1px solid #e5e7eb;
-      font-size: 14px;
-      color: #9ca3af;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #2e2f33;
+      font-size: 13px;
+      color: #5f5f67;
     }
 
     .error {
-      color: #ef4444;
+      color: #f87171;
       font-size: 14px;
       margin-top: 8px;
       display: none;
@@ -220,12 +237,17 @@
 </head>
 <body>
   <div class="container">
-    <div class="icon">🔒</div>
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+      <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+      <circle cx="12" cy="15.5" r="1.2" fill="currentColor"></circle>
+    </svg>
     <h1>Site Blocked</h1>
     <p id="blockedSiteText">This website has been blocked by ChromeLock to help you stay focused and productive.</p>
-    
-    <div class="message">
-      <p><strong>Take a moment to reflect:</strong> Is visiting this site aligned with your current goals?</p>
+
+    <div class="quote" id="quote">
+      <div class="quote-text" id="quoteText"></div>
+      <div class="quote-author" id="quoteAuthor"></div>
     </div>
 
     <div class="unblock-section">
@@ -248,14 +270,11 @@
               type="number" 
               id="duration" 
               min="1" 
-              max="480" 
+              max="120" 
               placeholder="15"
               required
             >
-            <select id="timeUnit" required>
-              <option value="minutes">Minutes</option>
-              <option value="hours">Hours</option>
-            </select>
+            <span class="unit">Minutes</span>
           </div>
           <div class="error" id="durationError">Please enter a valid duration</div>
         </div>
@@ -266,7 +285,7 @@
     </div>
 
     <div class="tip">
-      💡 Tip: You can manage your blocked sites by clicking the ChromeLock icon in your browser toolbar.
+      Tip: you can manage your blocked sites by clicking the ChromeLock icon in your browser toolbar.
     </div>
   </div>
 
